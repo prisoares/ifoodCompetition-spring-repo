@@ -1,0 +1,4 @@
+curl -X PUT http://localhost:8080/restaurant/ -H "Content-Type: application/json" -d \
+  '{ "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"}'
+
+  '{ "id": "1", "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"}'
