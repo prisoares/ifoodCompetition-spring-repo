@@ -11,4 +11,4 @@ steps:
     args:
       - 'push'
       - 'gcr.io/$PROJECT_ID/spring-sandbox-project:$COMMIT_SHA'
-    images: ['gcr.io/$PROJECT_ID/spring-sandbox-project:$COMMIT_SHA'
+    images: 'gcr.io/$PROJECT_ID/spring-sandbox-project:$COMMIT_SHA'
