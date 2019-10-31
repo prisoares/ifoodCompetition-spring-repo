@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
-Start-Class: hello.DemoApplication
+Start-Class: com.thoughtworks.ifoodcompetition.IfoodCompetitionApplica
+ tion
 Spring-Boot-Classes: BOOT-INF/classes/
 Spring-Boot-Lib: BOOT-INF/lib/
 Spring-Boot-Version: 2.1.8.RELEASE

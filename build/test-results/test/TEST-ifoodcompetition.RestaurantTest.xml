@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ifoodcompetition.RestaurantTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2019-10-23T18:45:56" hostname="LApsoares" time="0.001">
-  <properties/>
-  <testcase name="shouldSetId" classname="ifoodcompetition.RestaurantTest" time="0.0"/>
-  <testcase name="shouldCreateRestaurantWithSuccess" classname="ifoodcompetition.RestaurantTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

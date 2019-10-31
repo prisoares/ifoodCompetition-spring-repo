@@ -1,4 +1,25 @@
-curl -X PUT http://localhost:8080/restaurant/ -H "Content-Type: application/json" -d \
-  '{ "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"}'
+Documentação
 
+Exemplo de cadastro de restaurante:
+
+Request:
+  curl -X PUT http://localhost:8080/restaurant/ -H "Content-Type: application/json" -d \
+  '{ "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"}'
+Response:
   '{ "id": "1", "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"}'
+
+Exemplo de busca de restaurante por id:
+Request:
+  curl -X GET http://localhost:8080/restaurant/1 -H "Content-Type: application/json"
+Response:
+  '{ "id": "1", "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"}'
+
+
+Exemplo de atualizacao de restaurante por id:
+Request:
+  curl -X POST http://localhost:8080/restaurant/1 -H "Content-Type: application/json" -d \
+    '{ "name": "Terceira Mesa", "description": "comida media", "address":"rua tres"}'
+
+Response:
+  '{ "id": "1", "name": "Terceira Mesa", "description": "comida media", "address":"rua tres"}'
+
