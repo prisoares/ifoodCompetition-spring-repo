@@ -2,6 +2,7 @@
 target/
 gradle/
 .gradle
+.gradle*
 gradlew*
 build/
 bin/

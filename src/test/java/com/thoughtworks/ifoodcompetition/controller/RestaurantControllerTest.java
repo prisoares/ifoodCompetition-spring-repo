@@ -48,5 +48,25 @@ public class RestaurantControllerTest {
         assertThat(restaurant.getAddress(), is(address));
     }
 
+    @Test
+    public void shouldDeleteRestaurant(){
+        //Given
+        RestaurantController controller = new RestaurantController();
+        Long id = 10L;
+        String name = "Segunda Mesa";
+        String description = "comida boa";
+        String address = "rua dois";
+
+        Restaurant updatedRestaurante = new Restaurant(name, description, address, id);
+
+        //When
+        Restaurant restaurant = controller.updateRestaurant(id, updatedRestaurante);
+
+        //Then
+        assertThat(restaurant.getId(), is(id));
+        assertThat(restaurant.getName(), is(name));
+        assertThat(restaurant.getDescription(), is(description));
+        assertThat(restaurant.getAddress(), is(address));
+    }
 
 }

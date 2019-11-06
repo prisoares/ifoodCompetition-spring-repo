@@ -23,6 +23,11 @@ public class RestaurantController {
         return restaurante;
     }
 
+    @RequestMapping(value = "/restaurant/{id}", method = RequestMethod.DELETE)
+    public String deleteRestaurant(@PathVariable("id") Long id) {
+        return  "Restaurante" + id + "foi removido com sucesso.";
+    }
+
     private Restaurant findRestaurantById(Long id){
         return new Restaurant("Segunda Mesa", "comida boa", "rua dois", id);
     }
