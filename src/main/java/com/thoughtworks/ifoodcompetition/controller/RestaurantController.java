@@ -25,16 +25,20 @@ public class RestaurantController {
 
     @RequestMapping(value = "/restaurant/{id}", method = RequestMethod.DELETE)
     public String deleteRestaurant(@PathVariable("id") Long id) {
-        return  "Restaurante" + id + "foi removido com sucesso.";
+        return  deleteeRestaurantById(id);
     }
 
     private Restaurant findRestaurantById(Long id){
         return new Restaurant("Segunda Mesa", "comida boa", "rua dois", id);
     }
 
-    private Restaurant insertRestaurant(Restaurant newRestaurant){
+    private Restaurant insertRestaurant(Restaurant newRestaurant) {
         Long id = 9L;
         return new Restaurant(newRestaurant.getName(), newRestaurant.getDescription(), newRestaurant.getAddress(), id);
+    }
+
+    private String deleteeRestaurantById(Long id) {
+        return "Restaurante " + id + " foi removido com sucesso.";
     }
 
 }

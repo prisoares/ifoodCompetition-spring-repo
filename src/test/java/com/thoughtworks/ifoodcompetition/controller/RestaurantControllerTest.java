@@ -53,20 +53,12 @@ public class RestaurantControllerTest {
         //Given
         RestaurantController controller = new RestaurantController();
         Long id = 10L;
-        String name = "Segunda Mesa";
-        String description = "comida boa";
-        String address = "rua dois";
-
-        Restaurant updatedRestaurante = new Restaurant(name, description, address, id);
 
         //When
-        Restaurant restaurant = controller.updateRestaurant(id, updatedRestaurante);
+        String deletedRestaurant = controller.deleteRestaurant(id);
 
         //Then
-        assertThat(restaurant.getId(), is(id));
-        assertThat(restaurant.getName(), is(name));
-        assertThat(restaurant.getDescription(), is(description));
-        assertThat(restaurant.getAddress(), is(address));
+        assertThat(deletedRestaurant.toString(), is("Restaurante " + id + " foi removido com sucesso."));
     }
 
 }

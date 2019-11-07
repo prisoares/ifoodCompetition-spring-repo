@@ -1,12 +1,4 @@
 .idea
-target/
-gradle/
 .gradle
-.gradle*
-gradlew*
 build/
-bin/
-.classpath
-.project
-.settings/
-out/%
+out/

@@ -24,8 +24,7 @@ Response:
 
 Exemplo de remoção de restaurante por id:
 Request:
-  curl -X DELETE http://localhost:8080/restaurant/1 -H "Content-Type: application/json" -d \
-    '{ "name": "Terceira Mesa", "description": "comida media", "address":"rua tres"}'
+  curl -X DELETE http://localhost:8080/restaurant/1 -H "Content-Type: application/json"
 
 Response:
-  '{ "Restaurante" + id": "1" + "foi removido com sucesso."}'
+  '{ "Restaurante 1 foi removido com sucesso."}'
