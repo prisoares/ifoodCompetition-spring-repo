@@ -1,14 +1,22 @@
 package com.thoughtworks.ifoodcompetition.controller;
 
+import com.thoughtworks.ifoodcompetition.infraestructure.RestaurantRepository;
 import com.thoughtworks.ifoodcompetition.model.Restaurant;
+import org.aspectj.apache.bcel.util.Repository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RestaurantController {
 
+    private final RestaurantRepository repository;
+
+    public RestaurantController(RestaurantRepository repository) {
+        this.repository = repository;
+    }
+
     @RequestMapping(value = "/restaurant", method = RequestMethod.PUT)
-    public Restaurant createRestaurant(@RequestBody Restaurant restaurant) {
-        return insertRestaurant(restaurant);
+    public Restaurant createRestaurant(@RequestBody Restaurant newRestaurant) {
+        return repository.save(newRestaurant);
     }
 
     @RequestMapping(value = "/restaurant/{id}", method = RequestMethod.GET)
@@ -25,19 +33,15 @@ public class RestaurantController {
 
     @RequestMapping(value = "/restaurant/{id}", method = RequestMethod.DELETE)
     public String deleteRestaurant(@PathVariable("id") Long id) {
-        return  deleteeRestaurantById(id);
+        return  deleteRestaurantById(id);
     }
 
     private Restaurant findRestaurantById(Long id){
-        return new Restaurant("Segunda Mesa", "comida boa", "rua dois", id);
+        return repository.findById(id);
+        //return new Restaurant("Segunda Mesa", "comida boa", "rua dois", id);
     }
 
-    private Restaurant insertRestaurant(Restaurant newRestaurant) {
-        Long id = 9L;
-        return new Restaurant(newRestaurant.getName(), newRestaurant.getDescription(), newRestaurant.getAddress(), id);
-    }
-
-    private String deleteeRestaurantById(Long id) {
+    private String deleteRestaurantById(Long id) {
         return "Restaurante " + id + " foi removido com sucesso.";
     }
 

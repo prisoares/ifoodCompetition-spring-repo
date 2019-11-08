@@ -1,15 +1,22 @@
 package com.thoughtworks.ifoodcompetition.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Restaurant {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String name;
     private String description;
     private String address;
-    private Long id;
 
-    public Restaurant(){
-
-    }
+    public Restaurant(){}
 
     public Restaurant(String name, String description, String address, Long id){
         this.name = name;
