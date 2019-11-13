@@ -16,6 +16,4 @@ public class GreetingController {
     public Greeting test(@RequestParam(value="name", defaultValue="World") String name, @RequestParam(value="age") Long age) {
         return new Greeting(age, "Hello, "+name);
     }
-
-
 }
