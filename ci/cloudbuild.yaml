@@ -16,3 +16,7 @@ steps:
     args:
       - './gradlew'
       - 'test'
+  - name:
+     id: Deploy
+     args:
+       - 'git push heroku master'
