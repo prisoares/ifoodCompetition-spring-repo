@@ -16,7 +16,7 @@ steps:
     args:
       - './gradlew'
       - 'test'
-  - name:
+  - name: 'gcr.io/cloud-builders/docker'
      id: Deploy
      args:
        - 'git push heroku master'
