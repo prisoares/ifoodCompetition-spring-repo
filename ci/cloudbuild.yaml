@@ -1,5 +1,9 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
+    id: Deploy
+    args:
+      - 'git push heroku master'
+  - name: 'gcr.io/cloud-builders/docker'
     id: Build
     args:
       - 'build'
@@ -16,7 +20,3 @@ steps:
     args:
       - './gradlew'
       - 'test'
-  - name: 'gcr.io/cloud-builders/docker'
-     id: Deploy
-     args:
-       - 'git push heroku master'
