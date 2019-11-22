@@ -23,4 +23,19 @@ public class RestaurantTest {
         restaurant.setId(1L);
         assertThat(restaurant.getId(), is(1L));
     }
+
+    @Test
+    public void updateFromRestaurant(){
+        Restaurant currentRestaurant = new Restaurant("Segunda Mesa",
+                "Free Beer", "Calle 3", 2L);;
+        Restaurant updatedRestaurant = new Restaurant("Primeira Mesa",
+                "Free buffet", "Calle 2", null);
+
+        currentRestaurant.update(updatedRestaurant);
+
+        assertThat(currentRestaurant.getName(), is(updatedRestaurant.getName()));
+        assertThat(currentRestaurant.getDescription(), is(updatedRestaurant.getDescription()));
+        assertThat(currentRestaurant.getAddress(), is(updatedRestaurant.getAddress()));
+        assertThat(currentRestaurant.getId(), is(2L));
+    }
 }

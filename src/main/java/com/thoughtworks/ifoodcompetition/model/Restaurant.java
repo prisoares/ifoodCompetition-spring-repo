@@ -48,4 +48,10 @@ public class Restaurant {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void update(Restaurant updatedRestaurant) {
+        this.name = updatedRestaurant.name;
+        this.description = updatedRestaurant.description;
+        this.address = updatedRestaurant.address;
+    }
 }

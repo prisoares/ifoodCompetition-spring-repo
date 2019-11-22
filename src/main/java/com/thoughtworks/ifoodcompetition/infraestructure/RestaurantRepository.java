@@ -9,4 +9,6 @@ public interface RestaurantRepository extends Repository<Restaurant, Long> {
     Restaurant save(Restaurant restaurant);
 
     Restaurant findById(Long id);
+
+    Restaurant deleteById(Long id);
 }

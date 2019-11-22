@@ -5,13 +5,13 @@ import com.thoughtworks.ifoodcompetition.model.Restaurant;
 import org.aspectj.apache.bcel.util.Repository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InOrder;
 
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class RestaurantControllerTest {
 
@@ -39,56 +39,67 @@ public class RestaurantControllerTest {
     }
 
     @Test
-    public void shouldGetRestaurantById(){
-        /* //Given
-        RestaurantController controller = new RestaurantController(repository);
-        Long id = 10L;
-        String name = "Segunda Mesa";
-        String description = "comida boa";
-        String address = "rua dois";
+    public void shouldGetRestaurantById() {
+        //Given
+        Long id = 1L;
+        Restaurant expectedRestaurant = mock(Restaurant.class);
+        when(repository.findById(id)).thenReturn(expectedRestaurant);
 
         //When
         Restaurant restaurant = controller.getRestaurantByID(id);
 
         //Then
-        assertThat(restaurant.getId(), is(id));
-        assertThat(restaurant.getName(), is(name));
-        assertThat(restaurant.getDescription(), is(description));
-        assertThat(restaurant.getAddress(), is(address));*/
+        assertThat(restaurant, is(expectedRestaurant));
     }
 
     @Test
     public void shouldUpdateRestaurant(){
-        /*Given
-        RestaurantController controller = new RestaurantController(repository);
-        Long id = 10L;
-        String name = "Segunda Mesa";
-        String description = "comida boa";
-        String address = "rua dois";
-
-        Restaurant updatedRestaurante = new Restaurant(name, description, address, id);
-
+        //Given
+        Restaurant updatedRestaurant = mock(Restaurant.class);
+        Restaurant oldRestaurant = mock(Restaurant.class);
+        when(repository.save(oldRestaurant)).thenReturn(updatedRestaurant);
         //When
-        Restaurant restaurant = controller.updateRestaurant(id, updatedRestaurante);
+        Restaurant restaurant = controller.updateRestaurant(oldRestaurant);
 
         //Then
-        assertThat(restaurant.getId(), is(id));
-        assertThat(restaurant.getName(), is(name));
-        assertThat(restaurant.getDescription(), is(description));
-        assertThat(restaurant.getAddress(), is(address));*/
+        assertThat(restaurant, is(updatedRestaurant));
     }
 
     @Test
-    public void shouldDeleteRestaurant(){
+    public void shouldUpdateRestaurantById(){
         //Given
-        RestaurantController controller = new RestaurantController(repository);
-        Long id = 10L;
+        Long id = 1L;
+        Restaurant updatedRestaurant = mock(Restaurant.class);
+        Restaurant currentRestaurant = mock(Restaurant.class);
+        Restaurant savedRestaurant = mock(Restaurant.class);
+        when(repository.findById(id)).thenReturn(currentRestaurant);
+        when(repository.save(currentRestaurant)).thenReturn(savedRestaurant);
 
         //When
-        String deletedRestaurant = controller.deleteRestaurant(id);
+        Restaurant restaurant = controller.updateRestaurantById(id, updatedRestaurant);
+
+        //Then
+        assertThat(restaurant, is(savedRestaurant));
+        verify(currentRestaurant).update(updatedRestaurant);
+
+        InOrder order = inOrder(repository, currentRestaurant, repository);
+        order.verify(repository).findById(id);
+        order.verify(currentRestaurant).update(updatedRestaurant);
+        order.verify(repository).save(currentRestaurant);
+
+    }
+
+    /*@Test
+    public void shouldDeleteRestaurantWithoutRepo(){
+        //Given
+        Long id = 3L;
+        when(repository.delete(id)).thenReturn("");
+
+        //When
+        Restaurant restaurant = new controller.deleteRestaurant(id);
 
         //Then
         assertThat(deletedRestaurant.toString(), is("Restaurante " + id + " foi removido com sucesso."));
-    }
+    }*/
 
 }

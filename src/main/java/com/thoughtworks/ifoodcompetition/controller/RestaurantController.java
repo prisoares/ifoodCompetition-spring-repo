@@ -21,14 +21,20 @@ public class RestaurantController {
 
     @RequestMapping(value = "/restaurant/{id}", method = RequestMethod.GET)
     public Restaurant getRestaurantByID(@PathVariable("id") Long id) {
-        Restaurant restaurante = findRestaurantById(id);
-        return restaurante;
+        return repository.findById(id);
     }
 
     @RequestMapping(value = "/restaurant/{id}", method = RequestMethod.POST)
-    public Restaurant updateRestaurant(@PathVariable("id") Long id, @RequestBody Restaurant updatedRestaurant) {
-        Restaurant restaurante = findRestaurantById(id);
-        return restaurante;
+    public Restaurant updateRestaurantById(@PathVariable("id") Long id, @RequestBody Restaurant updatedRestaurant) {
+        Restaurant currentRestaurant = repository.findById(id);
+        currentRestaurant.update(updatedRestaurant);
+        Restaurant savedRestaurant = repository.save(currentRestaurant);
+        return savedRestaurant;
+    }
+
+    @RequestMapping(value = "/restaurant", method = RequestMethod.POST)
+    public Restaurant updateRestaurant(@RequestBody Restaurant updatedRestaurant) {
+        return repository.save(updatedRestaurant);
     }
 
     @RequestMapping(value = "/restaurant/{id}", method = RequestMethod.DELETE)
@@ -36,12 +42,8 @@ public class RestaurantController {
         return  deleteRestaurantById(id);
     }
 
-    private Restaurant findRestaurantById(Long id){
-        return repository.findById(id);
-        //return new Restaurant("Segunda Mesa", "comida boa", "rua dois", id);
-    }
-
     private String deleteRestaurantById(Long id) {
+        repository.deleteById(id);
         return "Restaurante " + id + " foi removido com sucesso.";
     }
 

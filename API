@@ -3,20 +3,20 @@ Documentação
 Exemplo de cadastro de restaurante:
 
 Request:
-  curl -X PUT http://localhost:8080/restaurant/ -H "Content-Type: application/json" -d \
+  curl -X PUT http://localhost:5000/restaurant/ -H "Content-Type: application/json" -d \
   '{ "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"}'
 Response:
   '{ "id": "1", "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"}'
 
 Exemplo de busca de restaurante por id:
 Request:
-  curl -X GET http://localhost:8080/restaurant/1 -H "Content-Type: application/json"
+  curl -X GET http://localhost:5000/restaurant/1 -H "Content-Type: application/json"
 Response:
   '{ "id": "1", "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"}'
 
 Exemplo de atualizacao de restaurante por id:
 Request:
-  curl -X POST http://localhost:8080/restaurant/1 -H "Content-Type: application/json" -d \
+  curl -X POST http://localhost:5000/restaurant/1 -H "Content-Type: application/json" -d \
     '{ "name": "Terceira Mesa", "description": "comida media", "address":"rua tres"}'
 
 Response:
@@ -24,7 +24,7 @@ Response:
 
 Exemplo de remoção de restaurante por id:
 Request:
-  curl -X DELETE http://localhost:8080/restaurant/1 -H "Content-Type: application/json"
+  curl -X DELETE http://localhost:5000/restaurant/1 -H "Content-Type: application/json"
 
 Response:
   '{ "Restaurante 1 foi removido com sucesso."}'

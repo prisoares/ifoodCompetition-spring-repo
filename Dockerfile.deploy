@@ -1,0 +1,5 @@
+FROM centos:7
+RUN yum clean all && yum install -y git
+
+git checkout /repo...$COMMIT_SHA
+git push heroku master
