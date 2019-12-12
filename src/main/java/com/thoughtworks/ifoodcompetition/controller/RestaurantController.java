@@ -3,6 +3,7 @@ package com.thoughtworks.ifoodcompetition.controller;
 import com.thoughtworks.ifoodcompetition.infraestructure.RestaurantRepository;
 import com.thoughtworks.ifoodcompetition.model.Restaurant;
 import org.aspectj.apache.bcel.util.Repository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -43,8 +44,12 @@ public class RestaurantController {
     }
 
     private String deleteRestaurantById(Long id) {
-        repository.deleteById(id);
-        return "Restaurante " + id + " foi removido com sucesso.";
+        try {
+            repository.deleteById(id);
+            return "Restaurante " + id + " foi removido com sucesso.";
+        } catch (EmptyResultDataAccessException e) {
+            return "Houve um problema ao deletar o restaurante.";
+        }
     }
 
 }

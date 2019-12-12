@@ -7,6 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+
+import javax.naming.ldap.Rdn;
+
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -89,17 +93,31 @@ public class RestaurantControllerTest {
 
     }
 
-    /*@Test
-    public void shouldDeleteRestaurantWithoutRepo(){
+    @Test
+    public void shouldDeleteRestaurant(){
         //Given
         Long id = 3L;
-        when(repository.delete(id)).thenReturn("");
+        when(repository.deleteById(id)).thenReturn(true);
 
         //When
-        Restaurant restaurant = new controller.deleteRestaurant(id);
+        String deletedRestaurant = controller.deleteRestaurant(id);
 
         //Then
-        assertThat(deletedRestaurant.toString(), is("Restaurante " + id + " foi removido com sucesso."));
-    }*/
+        assertThat(deletedRestaurant, is("Restaurante " + id + " foi removido com sucesso."));
+    }
+
+    @Test
+    public void shouldNotDeleteRestaurant(){
+        //Given
+        Long id = 3L;
+        when(repository.deleteById(id)).thenThrow(EmptyResultDataAccessException.class);
+
+        //When
+        String deletedRestaurant = controller.deleteRestaurant(id);
+
+        //Then
+        assertThat(deletedRestaurant, is("Houve um problema ao deletar o restaurante."));
+    }
+
 
 }

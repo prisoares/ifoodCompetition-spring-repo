@@ -10,5 +10,5 @@ public interface RestaurantRepository extends Repository<Restaurant, Long> {
 
     Restaurant findById(Long id);
 
-    Restaurant deleteById(Long id);
+    Boolean deleteById(Long id);
 }
