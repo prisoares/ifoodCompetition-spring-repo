@@ -1,15 +1,15 @@
 package com.thoughtworks.ifoodcompetition.controller;
 
+import com.thoughtworks.ifoodcompetition.infraestructure.CardapioRepository;
 import com.thoughtworks.ifoodcompetition.infraestructure.RestaurantRepository;
 import com.thoughtworks.ifoodcompetition.model.Restaurant;
-import org.aspectj.apache.bcel.util.Repository;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.InOrder;
 
 import org.springframework.dao.EmptyResultDataAccessException;
-
-import javax.naming.ldap.Rdn;
 
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -19,13 +19,18 @@ import static org.mockito.Mockito.*;
 
 public class RestaurantControllerTest {
 
-    private RestaurantRepository repository;
+    private RestaurantRepository restaurantRepository;
+    private CardapioRepository cardapioRepository;
     private RestaurantController controller;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void setup() {
-        repository = mock(RestaurantRepository.class);
-        controller = new RestaurantController(repository);
+        restaurantRepository = mock(RestaurantRepository.class);
+        cardapioRepository = mock(CardapioRepository.class);
+        controller = new RestaurantController(restaurantRepository, cardapioRepository);
     }
 
     @Test
@@ -33,7 +38,7 @@ public class RestaurantControllerTest {
         //Given
         Restaurant newRestaurant = mock(Restaurant.class);
         Restaurant expectedRestaurant = mock(Restaurant.class);
-        when(repository.save(newRestaurant)).thenReturn(expectedRestaurant);
+        when(restaurantRepository.save(newRestaurant)).thenReturn(expectedRestaurant);
 
         //When
         Restaurant restaurant = controller.createRestaurant(newRestaurant);
@@ -47,7 +52,7 @@ public class RestaurantControllerTest {
         //Given
         Long id = 1L;
         Restaurant expectedRestaurant = mock(Restaurant.class);
-        when(repository.findById(id)).thenReturn(expectedRestaurant);
+        when(restaurantRepository.findById(id)).thenReturn(expectedRestaurant);
 
         //When
         Restaurant restaurant = controller.getRestaurantByID(id);
@@ -61,7 +66,7 @@ public class RestaurantControllerTest {
         //Given
         Restaurant updatedRestaurant = mock(Restaurant.class);
         Restaurant oldRestaurant = mock(Restaurant.class);
-        when(repository.save(oldRestaurant)).thenReturn(updatedRestaurant);
+        when(restaurantRepository.save(oldRestaurant)).thenReturn(updatedRestaurant);
         //When
         Restaurant restaurant = controller.updateRestaurant(oldRestaurant);
 
@@ -76,8 +81,8 @@ public class RestaurantControllerTest {
         Restaurant updatedRestaurant = mock(Restaurant.class);
         Restaurant currentRestaurant = mock(Restaurant.class);
         Restaurant savedRestaurant = mock(Restaurant.class);
-        when(repository.findById(id)).thenReturn(currentRestaurant);
-        when(repository.save(currentRestaurant)).thenReturn(savedRestaurant);
+        when(restaurantRepository.findById(id)).thenReturn(currentRestaurant);
+        when(restaurantRepository.save(currentRestaurant)).thenReturn(savedRestaurant);
 
         //When
         Restaurant restaurant = controller.updateRestaurantById(id, updatedRestaurant);
@@ -86,38 +91,36 @@ public class RestaurantControllerTest {
         assertThat(restaurant, is(savedRestaurant));
         verify(currentRestaurant).update(updatedRestaurant);
 
-        InOrder order = inOrder(repository, currentRestaurant, repository);
-        order.verify(repository).findById(id);
+        InOrder order = inOrder(restaurantRepository, currentRestaurant, restaurantRepository);
+        order.verify(restaurantRepository).findById(id);
         order.verify(currentRestaurant).update(updatedRestaurant);
-        order.verify(repository).save(currentRestaurant);
+        order.verify(restaurantRepository).save(currentRestaurant);
 
     }
 
     @Test
-    public void shouldDeleteRestaurant(){
+    public void shouldDeleteRestaurant() throws Exception {
         //Given
         Long id = 3L;
-        when(repository.deleteById(id)).thenReturn(true);
+        doNothing().when(restaurantRepository).deleteById(id);
 
         //When
         String deletedRestaurant = controller.deleteRestaurant(id);
 
         //Then
-        assertThat(deletedRestaurant, is("Restaurante " + id + " foi removido com sucesso."));
+        verify(restaurantRepository).deleteById(id);
+        assertThat(deletedRestaurant, is("{\"message\": \"Restaurante foi removido com sucesso.\"}"));
     }
 
     @Test
-    public void shouldNotDeleteRestaurant(){
+    public void shouldNotDeleteRestaurant() throws Exception {
         //Given
         Long id = 3L;
-        when(repository.deleteById(id)).thenThrow(EmptyResultDataAccessException.class);
+        doThrow(EmptyResultDataAccessException.class).when(restaurantRepository).deleteById(id);
+        expectedException.expect(Exception.class);
+        expectedException.expectMessage("Houve um problema ao deletar o restaurante.");
 
         //When
-        String deletedRestaurant = controller.deleteRestaurant(id);
-
-        //Then
-        assertThat(deletedRestaurant, is("Houve um problema ao deletar o restaurante."));
+        controller.deleteRestaurant(id);
     }
-
-
 }
