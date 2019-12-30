@@ -8,19 +8,22 @@ import static org.junit.Assert.*;
 public class RestaurantTest {
 
     @Test
+    public void shouldCreateRestaurantWithDefaultConstructor(){
+        Restaurant restaurant = new Restaurant();
+        assertNotNull(restaurant);
+        assertNull(restaurant.getName());
+        assertNull(restaurant.getDescription());
+        assertNull(restaurant.getAddress());
+        assertNull(restaurant.getId());
+    }
+
+    @Test
     public void shouldCreateRestaurantWithSuccess(){
         Restaurant restaurant = new Restaurant("Primeira Mesa",
                 "Free buffet", "Calle 2", 1L);
         assertThat(restaurant.getName(), is("Primeira Mesa"));
         assertThat(restaurant.getDescription(), is("Free buffet"));
         assertThat(restaurant.getAddress(), is("Calle 2"));
-        assertThat(restaurant.getId(), is(1L));
-    }
-
-    @Test
-    public void shouldSetId(){
-        Restaurant restaurant = new Restaurant();
-        restaurant.setId(1L);
         assertThat(restaurant.getId(), is(1L));
     }
 

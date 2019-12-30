@@ -31,35 +31,76 @@ Request:
 Response:
   '{ "Restaurante 1 foi removido com sucesso."}'
 
-
-#####################################   CARDAPIO   ######################################
-##### PUT - Exemplo de cadastro de cardapio de restaurante, buscando restaurante por id:
+##### GET ALL - Exemplo de busca de todos os restaurantes
 Request:
-  curl -X PUT http://localhost:8080/restaurant/1/cardapio -H "Content-Type: application/json" -d \
-  '{ "prato": "Ala minuta", "tipo": "Pratos Quentes", "descricao": "Arroz, feijao, batata frida, carne, salda de alface e tomate", "valor": "R$20", "restauranteId": "1L"}'
+  curl -X GET http://localhost:8080/restaurant -H "Content-Type: application/json"
+Response:
+  '[{ "id": "1", "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"},{ "id": "2", "name": "Segunda Mesa", "description": "comida boa", "address":"rua dois"}]'
+
+#####################################   PRATO   ######################################
+##### PUT - Exemplo de cadastro de prato de restaurante, buscando restaurante por id:
+Request:
+  curl -X PUT http://localhost:8080/restaurant/1/prato -H "Content-Type: application/json" -d \
+  '{ "prato": "Ala minuta", "tipo": "Pratos Quentes", "descricao": "Arroz, feijao, batata frita, carne, salda de alface e tomate", "valor": "R$20", "restauranteId": "1L"}'
 
 Response:
-  '{ "id": "1", "prato": "Ala minuta", "tipo": "Pratos Quentes", "descricao": "Arroz, feijao, batata frida, carne, salda de alface e tomate", "valor": "R$20", "restauranteId": "1L"}'
+  '{ "id": "1", "prato": "Ala minuta", "tipo": "Pratos Quentes", "descricao": "Arroz, feijao, batata frita, carne, salda de alface e tomate", "valor": "R$20", "restauranteId": "1L"}'
 
 
-##### GET - Exemplo de busca de cardapio de restaurante, buscando restaurante por id:
+##### GET - Exemplo de busca de prato de restaurante, buscando restaurante por id:
+Request:
+  curl -X GET http://localhost:8080/restaurant/1/prato/1 -H "Content-Type: application/json"
+Response:
+  '{ "id": "1", "prato": "Ala minuta", "tipo": "Pratos Quentes", "descricao": "Arroz, feijao, batata frita, carne, salda de alface e tomate", "valor": "R$20", "restauranteId": "1L"}'
+
+
+##### POST - Exemplo de atualizacao de prato de restaurante, buscando restaurante e prato por id:
+Request:
+  curl -X POST http://localhost:8080/restaurant/1/prato/1 -H "Content-Type: application/json" -d \
+    '{ "prato": "Ala minuta SQN", "tipo": "Pratos Quentes", "descricao":"Arroz, feijao, batata frita, carne, salda de alface e tomate", "valor":"R$3000000"}'
+
+Response:
+  '{ "id": "1", "prato": "Ala minuta SQN", "tipo": "Pratos Quentes", "descricao":"Arroz, feijao, batata frita, carne, salda de alface e tomate", "valor":"R$3000000", "restauranteId":"1L"}'
+
+##### DELETE - Exemplo de remoção de prato de restaurante, buscando restaurante e prato por id:
+Request:
+  curl -X DELETE http://localhost:8080/restaurant/1/prato/1 -H "Content-Type: application/json"
+
+Response:
+  '{ "Prato foi removido com sucesso."}'
+
+##### DELETE - Exemplo de não remoção de prato de restaurante, buscando  e prato por id:
+Request:
+  curl -X DELETE http://localhost:8080/restaurant/0/prato/0 -H "Content-Type: application/json"
+
+Response:
+  '{ "Houve um problema ao deletar o prato."}'
+
+##### GET ALL - Exemplo de busca de todos os restaurantes
 Request:
   curl -X GET http://localhost:8080/restaurant/1/cardapio -H "Content-Type: application/json"
 Response:
-  '{ "id": "1", "prato": "Ala minuta", "tipo": "Pratos Quentes", "descricao": "Arroz, feijao, batata frida, carne, salda de alface e tomate", "valor": "R$20", "restauranteId": "1L"}'
+  '[{ "id": "1", "prato": "Ala minuta SQN", "tipo": "Pratos Quentes", "descricao":"Arroz, feijao, batata frita, carne, salda de alface e tomate", "valor":"R$3000000", "restauranteId":"1L"},{ "id": "2", "prato": "Ala minuta SQN", "tipo": "Pratos Quentes", "descricao":"Arroz, feijao, batata frita, carne, salda de alface e tomate", "valor":"R$3000000", "restauranteId":"1L"}]'
 
-
-##### POST - Exemplo de atualizacao de cardapio de restaurante, buscando restaurante por id:
 Request:
-  curl -X POST http://localhost:8080/restaurant/1/cardapio -H "Content-Type: application/json" -d \
-    '{ "prato": "Ala minuta", "tipo": "Pratos Quentes", "descricao":"Arroz, feijao, batata frida, carne, salda de alface e tomate", "valor":"R$20", "restauranteId":"1L"}'
+curl -X GET http://localhost:8080/restaurant/1/cardapio -H "Content-Type: application/json" | python -m json.tool
 
 Response:
-  '{ "id": "1", "prato": "Ala minuta", "tipo": "Pratos Quentes", "descricao":"Arroz, feijao, batata frida, carne, salda de alface e tomate", "valor":"R$20", "restauranteId":"1L"}'
-
-##### DELETE - Exemplo de remoção de cardapio de restaurante, buscando restaurante por id:
-Request:
-  curl -X DELETE http://localhost:8080/restaurant/1/cardapio -H "Content-Type: application/json"
-
-Response:
-  '{ "Cardápio do Restaurante 1 foi removido com sucesso."}'
+[
+    {
+        "descricao": "Arroz, feijao, batata frita, carne, salda de alface e tomate",
+        "id": 1,
+        "prato": "Ala minuta",
+        "restaurantId": 1,
+        "tipo": "Pratos Quentes",
+        "valor": "R$20"
+    },
+    {
+        "descricao": "Arroz, feijao, batata frita, carne, salda de alface e tomate",
+        "id": 2,
+        "prato": "Ala minuta",
+        "restaurantId": 1,
+        "tipo": "Pratos Quentes",
+        "valor": "R$20"
+    }
+]
