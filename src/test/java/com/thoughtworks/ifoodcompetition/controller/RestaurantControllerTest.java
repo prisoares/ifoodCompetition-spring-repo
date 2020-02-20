@@ -1,5 +1,6 @@
 package com.thoughtworks.ifoodcompetition.controller;
 
+import com.thoughtworks.ifoodcompetition.infraestructure.CnpjValidator;
 import com.thoughtworks.ifoodcompetition.infraestructure.PratoRepository;
 import com.thoughtworks.ifoodcompetition.infraestructure.RestaurantRepository;
 import com.thoughtworks.ifoodcompetition.model.Prato;
@@ -29,12 +30,14 @@ public class RestaurantControllerTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+    private CnpjValidator cnpjValidator;
 
     @Before
     public void setup() {
+        cnpjValidator = mock(CnpjValidator.class);
         restaurantRepository = mock(RestaurantRepository.class);
         pratoRepository = mock(PratoRepository.class);
-        controller = new RestaurantController(restaurantRepository, pratoRepository);
+        controller = new RestaurantController(cnpjValidator, restaurantRepository, pratoRepository);
     }
 
     @Test

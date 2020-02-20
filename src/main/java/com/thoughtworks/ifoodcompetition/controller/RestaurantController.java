@@ -1,5 +1,6 @@
 package com.thoughtworks.ifoodcompetition.controller;
 
+import com.thoughtworks.ifoodcompetition.infraestructure.CnpjValidator;
 import com.thoughtworks.ifoodcompetition.infraestructure.PratoRepository;
 import com.thoughtworks.ifoodcompetition.infraestructure.RestaurantRepository;
 import com.thoughtworks.ifoodcompetition.model.Prato;
@@ -21,9 +22,10 @@ public class RestaurantController {
     private static final String PRATO_NOT_FOUND_MESSAGE = "Houve um problema ao deletar o prato.";
     private final RestaurantRepository restaurantRepository;
     private final PratoRepository pratoRepository;
+    private final CnpjValidator cnpjValidator;
 
-
-    public RestaurantController(RestaurantRepository restaurantRepository, PratoRepository pratoRepository) {
+    public RestaurantController(CnpjValidator cnpj, RestaurantRepository restaurantRepository, PratoRepository pratoRepository) {
+        this.cnpjValidator = cnpj;
         this.restaurantRepository = restaurantRepository;
         this.pratoRepository = pratoRepository;
     }

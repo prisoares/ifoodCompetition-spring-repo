@@ -1,0 +1,45 @@
+{
+  "atividade_principal": [
+    {
+      "text": "Serviços domésticos",
+      "code": "97.00-5-00"
+    }
+  ],
+  "data_situacao": "02/10/2015",
+  "tipo": "MATRIZ",
+  "nome": "REGINALVA MOREIRA DO PRADO 00928060586",
+  "telefone": "(77) 8852-4211",
+  "email": "ludimilla_acesso@hotmail.com",
+  "situacao": "ATIVA",
+  "bairro": "IBIRAPUERA",
+  "logradouro": "RUA PEDRO ALVARES CABRAL",
+  "numero": "31",
+  "cep": "45.075-140",
+  "municipio": "VITORIA DA CONQUISTA",
+  "porte": "MICRO EMPRESA",
+  "abertura": "02/10/2015",
+  "natureza_juridica": "213-5 - Empresário (Individual)",
+  "uf": "BA",
+  "cnpj": "23.403.106/0001-31",
+  "ultima_atualizacao": "2020-01-25T23:59:59.000Z",
+  "status": "OK",
+  "fantasia": "",
+  "complemento": "",
+  "efr": "",
+  "motivo_situacao": "",
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "atividades_secundarias": [
+    {
+      "code": "00.00-0-00",
+      "text": "Não informada"
+    }
+  ],
+  "capital_social": "0.00",
+  "qsa": [],
+  "extra": {},
+  "billing": {
+    "free": true,
+    "database": true
+  }
+}

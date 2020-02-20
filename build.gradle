@@ -16,6 +16,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.apache.httpcomponents:fluent-hc:4.5.11'
 	runtimeOnly 'com.h2database:h2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation (
+			'org.springframework.boot:spring-boot-starter-test',
+			'com.github.tomakehurst:wiremock:2.25.1',
+			'org.apache.httpcomponents:fluent-hc:4.5.11'
+	)
+
 }	
