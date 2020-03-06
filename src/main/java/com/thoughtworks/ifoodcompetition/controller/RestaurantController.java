@@ -3,6 +3,7 @@ package com.thoughtworks.ifoodcompetition.controller;
 import com.thoughtworks.ifoodcompetition.infraestructure.CnpjValidator;
 import com.thoughtworks.ifoodcompetition.infraestructure.PratoRepository;
 import com.thoughtworks.ifoodcompetition.infraestructure.RestaurantRepository;
+import com.thoughtworks.ifoodcompetition.model.CnpjStatus;
 import com.thoughtworks.ifoodcompetition.model.Prato;
 import com.thoughtworks.ifoodcompetition.model.Restaurant;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+
+import static com.thoughtworks.ifoodcompetition.model.CnpjStatus.FAIL;
+import static com.thoughtworks.ifoodcompetition.model.CnpjStatus.INVALID;
 
 @RestController
 public class RestaurantController {
@@ -43,8 +47,18 @@ public class RestaurantController {
     }
 
     @RequestMapping(value = "/restaurant", method = RequestMethod.PUT)
-    public Restaurant createRestaurant(@RequestBody Restaurant newRestaurant) {
+    public Restaurant createRestaurant(@RequestBody Restaurant newRestaurant) throws Exception {
+        validateCNPJ(newRestaurant);
         return restaurantRepository.save(newRestaurant);
+    }
+
+    private void validateCNPJ(@RequestBody Restaurant newRestaurant) throws Exception {
+        CnpjStatus cnpjStatus = cnpjValidator.validaCnpj(newRestaurant.getCnpj());
+        if(INVALID.equals(cnpjStatus)) {
+            throw new Exception("CNPJ inválido.");
+        } else if (FAIL.equals(cnpjStatus)) {
+            throw new Exception("Serviço de busca de CNPJ falhou.");
+        }
     }
 
     @RequestMapping(value = "/restaurant", method = RequestMethod.GET)

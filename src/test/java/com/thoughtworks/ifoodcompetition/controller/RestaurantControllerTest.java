@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.thoughtworks.ifoodcompetition.model.CnpjStatus.FAIL;
+import static com.thoughtworks.ifoodcompetition.model.CnpjStatus.INVALID;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -41,7 +43,7 @@ public class RestaurantControllerTest {
     }
 
     @Test
-    public void shouldCreateRestaurant() {
+    public void shouldCreateRestaurant() throws Exception {
         //Given
         Restaurant newRestaurant = mock(Restaurant.class);
         Restaurant expectedRestaurant = mock(Restaurant.class);
@@ -52,6 +54,32 @@ public class RestaurantControllerTest {
 
         //Then
         assertThat(restaurant, is(expectedRestaurant));
+    }
+
+    @Test
+    public void shouldNotCreateRestaurantWithInvalidCNPJ() throws Exception {
+        //Given
+        Restaurant newInvalidRestaurant = mock(Restaurant.class);
+        when(newInvalidRestaurant.getCnpj()).thenReturn("123456");
+        when(cnpjValidator.validaCnpj("123456")).thenReturn(INVALID);
+
+        expectedException.expect(Exception.class);
+        expectedException.expectMessage("CNPJ inválido.");
+        //When
+        controller.createRestaurant(newInvalidRestaurant);
+    }
+
+    @Test
+    public void shouldNotCreateRestaurantWhenServiceFailed() throws Exception {
+        //Given
+        Restaurant newRestaurant = mock(Restaurant.class);
+        when(newRestaurant.getCnpj()).thenReturn("123456");
+        when(cnpjValidator.validaCnpj("123456")).thenReturn(FAIL);
+
+        expectedException.expect(Exception.class);
+        expectedException.expectMessage("Serviço de busca de CNPJ falhou.");
+        //When
+        controller.createRestaurant(newRestaurant);
     }
 
     @Test

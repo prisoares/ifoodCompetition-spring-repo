@@ -1,5 +1,7 @@
 package com.thoughtworks.ifoodcompetition.model;
 
+import com.thoughtworks.ifoodcompetition.infraestructure.CnpjValidator;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,15 +17,19 @@ public class Restaurant {
     private String name;
     private String description;
     private String address;
+    private String cnpj;
 
     public Restaurant(){}
 
-    public Restaurant(String name, String description, String address, Long id){
+    public Restaurant(String cnpj, String name, String description, String address, Long id){
+        this.cnpj = cnpj;
         this.name = name;
         this.description = description;
         this.address = address;
         this.id = id;
     }
+
+    public String getCnpj() { return cnpj; }
 
     public Long getId() {
         return id;
@@ -41,9 +47,13 @@ public class Restaurant {
         return address;
     }
 
+
     public void update(Restaurant updatedRestaurant) {
+        this.cnpj = updatedRestaurant.cnpj;
         this.name = updatedRestaurant.name;
         this.description = updatedRestaurant.description;
         this.address = updatedRestaurant.address;
     }
+
+
 }

@@ -11,6 +11,7 @@ public class RestaurantTest {
     public void shouldCreateRestaurantWithDefaultConstructor(){
         Restaurant restaurant = new Restaurant();
         assertNotNull(restaurant);
+        assertNull(restaurant.getCnpj());
         assertNull(restaurant.getName());
         assertNull(restaurant.getDescription());
         assertNull(restaurant.getAddress());
@@ -19,8 +20,9 @@ public class RestaurantTest {
 
     @Test
     public void shouldCreateRestaurantWithSuccess(){
-        Restaurant restaurant = new Restaurant("Primeira Mesa",
+        Restaurant restaurant = new Restaurant("123456", "Primeira Mesa",
                 "Free buffet", "Calle 2", 1L);
+        assertThat(restaurant.getCnpj(), is("123456"));
         assertThat(restaurant.getName(), is("Primeira Mesa"));
         assertThat(restaurant.getDescription(), is("Free buffet"));
         assertThat(restaurant.getAddress(), is("Calle 2"));
@@ -29,13 +31,14 @@ public class RestaurantTest {
 
     @Test
     public void updateFromRestaurant(){
-        Restaurant currentRestaurant = new Restaurant("Segunda Mesa",
+        Restaurant currentRestaurant = new Restaurant("123456","Segunda Mesa",
                 "Free Beer", "Calle 3", 2L);;
-        Restaurant updatedRestaurant = new Restaurant("Primeira Mesa",
+        Restaurant updatedRestaurant = new Restaurant("200000","Primeira Mesa",
                 "Free buffet", "Calle 2", null);
 
         currentRestaurant.update(updatedRestaurant);
 
+        assertThat(currentRestaurant.getCnpj(), is(updatedRestaurant.getCnpj()));
         assertThat(currentRestaurant.getName(), is(updatedRestaurant.getName()));
         assertThat(currentRestaurant.getDescription(), is(updatedRestaurant.getDescription()));
         assertThat(currentRestaurant.getAddress(), is(updatedRestaurant.getAddress()));

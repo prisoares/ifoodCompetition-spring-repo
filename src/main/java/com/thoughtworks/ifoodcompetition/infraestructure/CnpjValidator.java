@@ -29,6 +29,7 @@ public class CnpjValidator {
                 return INVALID;
             }
         } catch (IOException e) {
+            e.getMessage();
             return FAIL;
         }
     }
