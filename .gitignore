@@ -1,4 +1,5 @@
 .idea
 .gradle
+.env
 build/
 out/
