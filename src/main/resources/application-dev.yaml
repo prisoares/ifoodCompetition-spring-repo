@@ -1,2 +1,15 @@
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/ifoodCompetition
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver_class: com.mysql.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
 cnpj:
   hostname: "https://www.receitaws.com.br"
