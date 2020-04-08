@@ -1,0 +1,1 @@
+docker-compose exec database mysql -u local ifoodCompetition -p

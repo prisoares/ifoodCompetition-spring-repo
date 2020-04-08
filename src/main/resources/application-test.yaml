@@ -1,2 +1,19 @@
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:h2:mem:ifoodCompetition;MODE=MySQL;IGNORECASE=TRUE;DB_CLOSE_ON_EXIT=FALSE
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    platform: h2
+    class-driver: or.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
 cnpj:
   hostname: "http://localhost:1000"
